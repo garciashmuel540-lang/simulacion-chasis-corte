@@ -65,6 +65,15 @@ svg rect[stroke="#378ADD"][stroke-dasharray] {
   display: none !important;
 }
 
+
+/* --- OCULTAR SOLO LOS PUNTOS AZULES SÓLIDOS --- */
+/* Apuntamos específicamente a los círculos con 'fill' azul (relleno), pero no a las líneas */
+circle[fill="#378ADD"], 
+circle[fill="#85b7eb"], 
+circle[fill="#e8c12a"] {
+  display: none !important;
+}
+
 </style>
 </head>
 <body>
