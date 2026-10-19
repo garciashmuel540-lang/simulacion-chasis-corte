@@ -65,17 +65,6 @@ svg rect[stroke="#378ADD"][stroke-dasharray] {
   display: none !important;
 }
 
-
-/* --- OCULTAR PUNTOS AZULES --- */
-circle[stroke="#378ADD"], rect[stroke="#378ADD"], path[stroke="#378ADD"],
-circle[style*="#378ADD"], rect[style*="#378ADD"], path[style*="#378ADD"] {
-  display: none !important;
-}
-/* Ocultar el contenedor de "overlay" (donde se dibujan los puntos dinámicos) */
-#ov {
-  display: none !important;
-}
-
 </style>
 </head>
 <body>
@@ -291,7 +280,7 @@ function sel(k){
     r.setAttribute('x',b[0]);r.setAttribute('y',b[1]);
     r.setAttribute('width',b[2]);r.setAttribute('height',b[3]);
     r.setAttribute('rx',3);r.setAttribute('fill','none');
-    /* Puntos azules desactivados */
+    r.setAttribute('stroke','#378ADD');r.setAttribute('stroke-width','1.2');
     r.setAttribute('stroke-dasharray','4 3');ov.appendChild(r);
   });
   document.getElementById('r_'+k).setAttribute('aria-pressed','true');
