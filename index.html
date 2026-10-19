@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ensamble del chasis de corte</title>
+<style>
+:root{
+--bg:#fff;--surface-1:#f4f3ee;--surface-2:#fff;--text:#1f1e1d;--text2:#5f5e5a;--muted:#888780;
+--border:rgba(0,0,0,.15);--border-strong:rgba(0,0,0,.3);--border-stronger:rgba(0,0,0,.45);
+--accent-bg:#e6f1fb;--accent-text:#0c447c;--accent-border:#378add;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+--bg:#1c1c1a;--surface-1:#262624;--surface-2:#2e2e2b;--text:#f1efe8;--text2:#b4b2a9;--muted:#888780;
+--border:rgba(255,255,255,.15);--border-strong:rgba(255,255,255,.3);--border-stronger:rgba(255,255,255,.45);
+--accent-bg:#0c447c;--accent-text:#b5d4f4;--accent-border:#85b7eb;
+}}
+:root[data-theme="dark"]{
+--bg:#1c1c1a;--surface-1:#262624;--surface-2:#2e2e2b;--text:#f1efe8;--text2:#b4b2a9;--muted:#888780;
+--border:rgba(255,255,255,.15);--border-strong:rgba(255,255,255,.3);--border-stronger:rgba(255,255,255,.45);
+--accent-bg:#0c447c;--accent-text:#b5d4f4;--accent-border:#85b7eb;
+}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;padding:16px;background:var(--bg);color:var(--text);font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:560px;margin:0 auto}
+h1{font-size:20px;font-weight:500;margin:0 0 12px}
+svg{display:block;width:100%;height:auto}
+svg text.ts{font-size:11px;fill:var(--text2);font-family:inherit}
+.bn{font-size:9px;font-weight:600;fill:var(--accent-text);font-family:inherit;pointer-events:none}
+.bc{fill:var(--accent-bg);stroke:var(--accent-border);stroke-width:1}
+.vn,.vs{transition:opacity var(--ts,.3s)}
+button{font:inherit;font-size:14px;color:var(--text);background:transparent;border:.5px solid var(--border-strong);border-radius:8px;padding:8px 14px;cursor:pointer;min-height:36px}
+button:hover{background:var(--surface-1)}
+button:active{transform:scale(.98)}
+button:disabled{opacity:.45;cursor:not-allowed}
+button.active{border-color:var(--accent-border);background:var(--accent-bg);color:var(--accent-text)}
+@keyframes dT{to{stroke-dashoffset:-5}}
+@keyframes dC{to{stroke-dashoffset:-10}}
+@media (prefers-reduced-motion: no-preference){
+.spin{animation:dT .5s linear infinite}
+.run{animation:dC .5s linear infinite}
+}
+.row{display:flex;align-items:center;width:100%;text-align:left;min-height:36px;padding:4px 10px;margin:0 0 4px;font-size:14px}
+.row[aria-pressed="true"]{border-color:var(--accent-border);background:var(--accent-bg);color:var(--accent-text)}
+.g{cursor:pointer}
+.info{background:var(--surface-1);border-radius:8px;padding:12px 14px;margin:0 0 12px;min-height:76px}
+.controls{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 8px;align-items:center}
+.speed-box{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text2)}
+.speed-box input[type=range]{width:90px;accent-color:#378add}
+#counter{font-size:13px;color:var(--text2);margin:0 0 8px}
+#st{font-size:13px;color:var(--text2);margin:0 0 12px}
+</style>
+</head>
+<body>
+<main>
+<h1>Ensamble del chasis de corte</h1>
+<svg viewBox="0 0 400 360" role="img" aria-label="Chasis de corte, vista frontal">
+<title>Chasis de corte, vista frontal</title>
+<desc>Bastidor de acero con riel y cadena superior, pierna avícola colgada de un gancho, discos alineadores de plástico a la izquierda, disco de corte horizontal que avanza y corta la pierna por completo, y dos actuadores neumáticos con mangueras azules que prensan el músculo. La pieza inferior cae a la bandeja.</desc>
+<defs>
+<linearGradient id="stl" x1="0" x2="1"><stop offset="0" stop-color="#b9bfc4"/><stop offset=".5" stop-color="#8b9298"/><stop offset="1" stop-color="#aab0b5"/></linearGradient>
+<linearGradient id="stv" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c3c8cc"/><stop offset="1" stop-color="#868d93"/></linearGradient>
+<linearGradient id="skin" x1="0" x2="1"><stop offset="0" stop-color="#f7cdbf"/><stop offset=".55" stop-color="#f2b8a8"/><stop offset="1" stop-color="#e2a090"/></linearGradient>
+<linearGradient id="saw" x1="0" x2="1"><stop offset="0" stop-color="#eef0f2"/><stop offset=".5" stop-color="#a9b0b7"/><stop offset="1" stop-color="#e2e5e8"/></linearGradient>
+<path id="pN" d="M-6 104 L6 104 C9 122 30 140 30 180 C30 215 18 250 0 250 C-18 250 -30 215 -30 180 C-30 140 -9 122 -6 104Z"/>
+<path id="pS" d="M-6 104 L6 104 C9 122 30 140 30 180 C30 200 17 208 17 228 C17 240 26 244 24 252 C22 260 8 262 0 262 C-8 262 -22 260 -24 252 C-26 244 -17 240 -17 228 C-17 208 -30 200 -30 180 C-30 140 -9 122 -6 104Z"/>
+<clipPath id="cu"><rect x="-60" y="90" width="120" height="95"/></clipPath>
+<clipPath id="cl"><rect x="-60" y="185" width="120" height="100"/></clipPath>
+</defs>
+
+<!-- 1 Bastidor -->
+<g class="g" onclick="sel('frame')">
+<rect x="30" y="300" width="340" height="14" rx="2" fill="url(#stv)" stroke="#5f656b" stroke-width=".6"/>
+<rect x="22" y="314" width="44" height="7" rx="1" fill="#7d848a" stroke="#5f656b" stroke-width=".6"/>
+<rect x="334" y="314" width="44" height="7" rx="1" fill="#7d848a" stroke="#5f656b" stroke-width=".6"/>
+<rect x="38" y="70" width="12" height="230" fill="url(#stl)" stroke="#5f656b" stroke-width=".6"/>
+<rect x="350" y="70" width="12" height="230" fill="url(#stl)" stroke="#5f656b" stroke-width=".6"/>
+<rect x="38" y="70" width="324" height="16" fill="url(#stv)" stroke="#5f656b" stroke-width=".6"/>
+<circle cx="44" cy="78" r="2.2" fill="#4a4f54"/><circle cx="356" cy="78" r="2.2" fill="#4a4f54"/><circle cx="44" cy="290" r="2.2" fill="#4a4f54"/><circle cx="356" cy="290" r="2.2" fill="#4a4f54"/>
+</g>
+
+<!-- 2 Riel y cadena -->
+<g class="g" onclick="sel('rail')">
+<rect x="44" y="56" width="8" height="14" fill="#8b9298"/><rect x="348" y="56" width="8" height="14" fill="#8b9298"/>
+<rect x="44" y="34" width="312" height="22" rx="3" fill="url(#stv)" stroke="#5f656b" stroke-width=".6"/>
+<line id="chain" x1="52" y1="45" x2="348" y2="45" stroke-width="9" stroke-dasharray="7 3" stroke="#3f444a" opacity=".85"/>
+</g>
+
+<!-- Bandeja -->
+<path d="M98 272 L202 272 L194 300 L106 300Z" style="fill:var(--surface-1);stroke:var(--border-stronger)" stroke-width=".8"/>
+<text class="ts" x="150" y="334" text-anchor="middle">Bandeja de corte</text>
+
+<!-- 6 / 7 Eje y disco de corte -->
+<g id="bg" style="transform:translateX(-93px)">
+<g class="g" onclick="sel('shaft')">
+<rect x="250" y="66" width="50" height="22" rx="2" fill="#7d848a" stroke="#5f656b" stroke-width=".6"/>
+<circle cx="257" cy="77" r="2" fill="#3f444a"/><circle cx="293" cy="77" r="2" fill="#3f444a"/>
+<rect x="261" y="88" width="28" height="6" rx="1" fill="#c3c8cc" stroke="#5f656b" stroke-width=".6"/>
+<rect x="268" y="94" width="14" height="86" fill="url(#stl)" stroke="#5f656b" stroke-width=".6"/><rect x="282" y="88" width="14" height="14" fill="#7d848a" stroke="#5f656b" stroke-width=".6"/><rect x="286" y="100" width="26" height="40" rx="4" fill="url(#stl)" stroke="#5f656b" stroke-width=".6"/><line x1="286" x2="312" y1="107" y2="107" stroke="#5f656b" stroke-width=".7"/><line x1="286" x2="312" y1="113" y2="113" stroke="#5f656b" stroke-width=".7"/><line x1="286" x2="312" y1="119" y2="119" stroke="#5f656b" stroke-width=".7"/><line x1="286" x2="312" y1="125" y2="125" stroke="#5f656b" stroke-width=".7"/><line x1="286" x2="312" y1="131" y2="131" stroke="#5f656b" stroke-width=".7"/><rect x="276" y="106" width="14" height="10" rx="2" fill="#9aa0a5" stroke="#5f656b" stroke-width=".6"/>
+</g>
+<g class="g" onclick="sel('blade')">
+<ellipse cx="275" cy="188" rx="66" ry="9" fill="#7d848a"/>
+<ellipse cx="275" cy="185" rx="66" ry="9" fill="url(#saw)" stroke="#6b7278" stroke-width=".6"/>
+<ellipse id="teeth" cx="275" cy="185" rx="66" ry="9" fill="none" stroke-width="2.6" stroke-dasharray="2.5 2.5" stroke="#5a6066"/>
+<ellipse cx="275" cy="181" rx="19" ry="5" fill="#c3c8cc" stroke="#5f656b" stroke-width=".6"/>
+<ellipse cx="275" cy="178" rx="14" ry="3.5" fill="#dfe3e6" stroke="#5f656b" stroke-width=".6"/>
+</g>
+</g>
+
+<!-- 5 Discos alineadores -->
+<g class="g" onclick="sel('discs')">
+<rect x="50" y="152" width="16" height="68" fill="url(#stl)" stroke="#5f656b" stroke-width=".6"/>
+<rect x="66" y="162" width="12" height="8" fill="#7d848a"/><rect x="66" y="196" width="12" height="8" fill="#7d848a"/>
+<rect x="92" y="166" width="12" height="38" fill="url(#stl)" stroke="#5f656b" stroke-width=".6"/>
+<rect x="76" y="86" width="44" height="8" fill="#7d848a" stroke="#5f656b" stroke-width=".6"/><rect x="82" y="94" width="28" height="36" rx="4" fill="url(#stl)" stroke="#5f656b" stroke-width=".6"/><line x1="82" x2="110" y1="101" y2="101" stroke="#5f656b" stroke-width=".7"/><line x1="82" x2="110" y1="107" y2="107" stroke="#5f656b" stroke-width=".7"/><line x1="82" x2="110" y1="113" y2="113" stroke="#5f656b" stroke-width=".7"/><line x1="82" x2="110" y1="119" y2="119" stroke="#5f656b" stroke-width=".7"/><line x1="82" x2="110" y1="125" y2="125" stroke="#5f656b" stroke-width=".7"/><rect x="86" y="130" width="20" height="14" rx="2" fill="#9aa0a5" stroke="#5f656b" stroke-width=".6"/><rect x="94" y="144" width="8" height="24" fill="#c3c8cc" stroke="#5f656b" stroke-width=".6"/><g id="gears"></g>
+</g>
+
+<!-- Carro + pierna -->
+<g id="cw" transform="translate(150 0)">
+<g id="car" style="transform:translateX(0px)">
+<g class="g" onclick="sel('hook')">
+<rect x="-15" y="32" width="30" height="24" rx="3" fill="#c4c9cd" stroke="#5f656b" stroke-width=".6"/>
+<circle cx="-8" cy="39" r="2" fill="#3f444a"/><circle cx="8" cy="39" r="2" fill="#3f444a"/>
+<line x1="0" y1="56" x2="0" y2="80" stroke-width="3" stroke="#4a4f54"/>
+<ellipse cx="0" cy="88" rx="5" ry="8" fill="none" stroke-width="2.4" stroke="#4a4f54"/>
+<path d="M0 96 L0 103" fill="none" stroke-width="3" stroke="#4a4f54"/>
+</g>
+<g class="g" onclick="sel('leg')">
+<g id="upG" clip-path="url(#cu)">
+<use href="#pN" class="vn" fill="url(#skin)" stroke="#C98A78" stroke-width=".8"/>
+<use href="#pS" class="vs" style="opacity:0" fill="url(#skin)" stroke="#C98A78" stroke-width=".8"/>
+<line id="cf" x1="-30" x2="30" y1="184" y2="184" stroke="#B5483A" stroke-width="2" style="opacity:0"/>
+</g>
+<g id="lowG" clip-path="url(#cl)" style="transition:transform .25s">
+<use href="#pN" class="vn" fill="url(#skin)" stroke="#C98A78" stroke-width=".8"/>
+<use href="#pS" class="vs" style="opacity:0" fill="url(#skin)" stroke="#C98A78" stroke-width=".8"/>
+</g>
+</g>
+</g>
+</g>
+
+<!-- Pieza inferior que cae -->
+<g transform="translate(150 0)">
+<g id="fallG" clip-path="url(#cl)" style="opacity:0;pointer-events:none;transform-origin:0px 217px">
+<use href="#pN" class="vn" fill="url(#skin)" stroke="#C98A78" stroke-width=".8"/>
+<use href="#pS" class="vs" style="opacity:0" fill="url(#skin)" stroke="#C98A78" stroke-width=".8"/>
+</g>
+</g>
+
+<!-- 8 Actuadores -->
+<g class="g" onclick="sel('act')">
+<rect x="296" y="218" width="54" height="28" fill="url(#stv)" stroke="#5f656b" stroke-width=".6"/><rect x="336" y="204" width="14" height="56" rx="1" fill="url(#stl)" stroke="#5f656b" stroke-width=".6"/><circle cx="343" cy="212" r="2" fill="#3f444a"/><circle cx="343" cy="252" r="2" fill="#3f444a"/><rect x="258" y="242" width="22" height="58" fill="url(#stl)" stroke="#5f656b" stroke-width=".6"/><rect x="252" y="240" width="34" height="5" rx="1" fill="#7d848a" stroke="#5f656b" stroke-width=".5"/><rect x="70" y="242" width="22" height="58" fill="url(#stl)" stroke="#5f656b" stroke-width=".6"/><rect x="64" y="240" width="34" height="5" rx="1" fill="#7d848a" stroke="#5f656b" stroke-width=".5"/><path d="M54 232 C40 232 32 244 32 266" fill="none" stroke="#378ADD" stroke-width="3.5" stroke-linecap="round"/>
+<path d="M54 238 C44 238 38 248 38 268" fill="none" stroke="#2a6cb8" stroke-width="3.5" stroke-linecap="round"/>
+<path d="M296 232 C320 232 334 244 336 266" fill="none" stroke="#378ADD" stroke-width="3.5" stroke-linecap="round"/>
+<path d="M296 238 C316 238 328 248 330 268" fill="none" stroke="#2a6cb8" stroke-width="3.5" stroke-linecap="round"/>
+<rect x="54" y="222" width="46" height="20" rx="2" fill="url(#stv)" stroke="#5f656b" stroke-width=".6"/>
+<rect x="246" y="222" width="50" height="20" rx="2" fill="url(#stv)" stroke="#5f656b" stroke-width=".6"/>
+<g id="L" style="transform:translateX(0px);transition:transform .45s ease-in-out">
+<rect x="98" y="229" width="10" height="6" fill="#dfe3e6" stroke="#5f656b" stroke-width=".5"/>
+<rect x="106" y="214" width="8" height="36" rx="2" fill="#aab0b5" stroke="#5f656b" stroke-width=".5"/>
+<rect x="114" y="216" width="4" height="32" rx="2" fill="#faeeda" stroke="#854f0b" stroke-width=".5"/>
+</g>
+<g id="R" style="transform:translateX(0px);transition:transform .45s ease-in-out">
+<rect x="192" y="229" width="54" height="6" fill="#dfe3e6" stroke="#5f656b" stroke-width=".5"/>
+<rect x="186" y="214" width="8" height="36" rx="2" fill="#aab0b5" stroke="#5f656b" stroke-width=".5"/>
+<rect x="182" y="216" width="4" height="32" rx="2" fill="#faeeda" stroke="#854f0b" stroke-width=".5"/>
+</g>
+</g>
+
+<!-- Números -->
+<g class="g" onclick="sel('frame')"><circle class="bc" cx="26" cy="190" r="8"/><text class="bn" x="26" y="193" text-anchor="middle">1</text></g>
+<g class="g" onclick="sel('rail')"><circle class="bc" cx="378" cy="45" r="8"/><text class="bn" x="378" y="48" text-anchor="middle">2</text></g>
+<g class="g" onclick="sel('hook')"><circle class="bc" cx="122" cy="96" r="8"/><text class="bn" x="122" y="99" text-anchor="middle">3</text></g>
+<g class="g" onclick="sel('leg')"><circle class="bc" cx="204" cy="140" r="8"/><text class="bn" x="204" y="143" text-anchor="middle">4</text></g>
+<g class="g" onclick="sel('discs')"><circle class="bc" cx="60" cy="142" r="8"/><text class="bn" x="60" y="145" text-anchor="middle">5</text></g>
+<g class="g" onclick="sel('shaft')"><circle class="bc" cx="232" cy="110" r="8"/><text class="bn" x="232" y="113" text-anchor="middle">6</text></g>
+<g class="g" onclick="sel('blade')"><circle class="bc" cx="262" cy="166" r="8"/><text class="bn" x="262" y="169" text-anchor="middle">7</text></g>
+<g class="g" onclick="sel('act')"><circle class="bc" cx="76" cy="262" r="8"/><text class="bn" x="76" y="265" text-anchor="middle">8</text></g>
+
+<polygon points="50,86 72,86 50,108" fill="#7d848a" stroke="#5f656b" stroke-width=".6"/><polygon points="350,86 328,86 350,108" fill="#7d848a" stroke="#5f656b" stroke-width=".6"/><rect x="322" y="118" width="20" height="36" rx="3" fill="#c4c9cd" stroke="#5f656b" stroke-width=".6"/><rect x="326" y="154" width="12" height="14" rx="2" fill="#9cc9ef" opacity=".75" stroke="#5f656b" stroke-width=".6"/><circle cx="332" cy="110" r="8" fill="#f4f5f6" stroke="#5f656b" stroke-width=".6"/><line x1="332" y1="110" x2="337" y2="106" stroke="#B5483A" stroke-width="1.2"/><path d="M332 168 L336 204" fill="none" stroke="#2a6cb8" stroke-width="3"/><rect x="322" y="266" width="24" height="22" rx="2" fill="#7d848a" stroke="#5f656b" stroke-width=".6"/><circle cx="328" cy="277" r="2" fill="#3f444a"/><circle cx="340" cy="277" r="2" fill="#3f444a"/><rect x="26" y="266" width="22" height="22" rx="2" fill="#7d848a" stroke="#5f656b" stroke-width=".6"/><circle cx="32" cy="277" r="2" fill="#3f444a"/><circle cx="42" cy="277" r="2" fill="#3f444a"/><rect x="362" y="162" width="4" height="6" fill="#5f656b"/><rect x="366" y="140" width="28" height="48" rx="2" fill="#c4c9cd" stroke="#5f656b" stroke-width=".6"/><rect x="369" y="143" width="22" height="42" fill="none" stroke="#8b9298" stroke-width=".5"/><circle cx="380" cy="156" r="8" fill="#e8c12a"/><circle cx="380" cy="156" r="5.5" fill="#d33a2c" stroke="#8a1f16" stroke-width=".6"/><circle cx="372" cy="174" r="2.5" fill="#3aa660"/><circle cx="380" cy="174" r="2.5" fill="#e8a317"/><circle cx="388" cy="174" r="2.5" fill="#bbb"/><path d="M380 188 L380 312" fill="none" stroke="#3f444a" stroke-width="2"/><circle cx="30" cy="317.5" r="1.6" fill="#3f444a"/><circle cx="58" cy="317.5" r="1.6" fill="#3f444a"/><circle cx="342" cy="317.5" r="1.6" fill="#3f444a"/><circle cx="370" cy="317.5" r="1.6" fill="#3f444a"/><rect x="150" y="303" width="56" height="8" rx="1" fill="#dfe3e6" stroke="#5f656b" stroke-width=".6"/><text x="178" y="309.3" text-anchor="middle" style="font-size:5.5px;fill:#3f444a;font-family:inherit">ASM-001 · 220 V</text><path d="M98 272 L202 272" stroke="#5f656b" stroke-width="2"/><g id="ov" style="pointer-events:none"></g>
+
+<line x1="30" y1="350" x2="170" y2="350" style="stroke:var(--muted)" stroke-width=".5"/>
+<line x1="230" y1="350" x2="370" y2="350" style="stroke:var(--muted)" stroke-width=".5"/>
+<line x1="30" y1="345" x2="30" y2="355" style="stroke:var(--muted)" stroke-width=".5"/>
+<line x1="370" y1="345" x2="370" y2="355" style="stroke:var(--muted)" stroke-width=".5"/>
+<text class="ts" x="200" y="350" text-anchor="middle" dominant-baseline="central">820 mm</text>
+</svg>
+
+<div class="controls">
+  <button id="bRun" onclick="runOne()">Procesar 1</button>
+  <button id="bCont" onclick="toggleContinuous()">Producción continua</button>
+  <button id="bPress" onclick="togglePress()">Prensar pierna</button>
+  <button id="bSpin" onclick="toggleSpin()">Girar disco</button>
+</div>
+<div class="speed-box">
+  <span>Velocidad:</span>
+  <input type="range" id="speed" min="0.4" max="7" step="0.1" value="1" oninput="updateSpeed()">
+  <span id="spdLabel">1.0×</span>
+</div>
+<p id="counter">Piezas procesadas: 0</p>
+<p id="st">Estado: listo</p>
+
+<div class="info">
+<p id="iN" style="font-weight:500;font-size:15px;margin:0">Toca una pieza</p>
+<p id="iE" style="font-size:13px;color:var(--text2);margin:0 0 6px">Selecciónala en el dibujo o en la lista.</p>
+<p id="iD" style="font-size:14px;margin:0;line-height:1.5"></p>
+</div>
+<div id="tree"></div>
+</main>
+
+<script>
+var P={
+frame:{es:'Ensamble del chasis de corte',en:'Cutting chassis assembly',d:'Bastidor de acero atornillado con perfiles C y tubo cuadrado, con patas de montaje. Soporta todos los subsistemas.',b:[[22,66,356,256]]},
+rail:{es:'Riel y cadena de avance',en:'Conveyor rail and chain',d:'Cadena de rodillos sobre un riel superior. Arrastra el carro y la pierna por cada estación.',b:[[42,32,316,26]]},
+hook:{es:'Gancho de transporte',en:'Conveyor hook',d:'Grillete giratorio y gancho en U que unen el carro con el producto.',b:[[132,30,36,76]]},
+leg:{es:'Pierna avícola / Músculo',en:'Poultry leg / meat',d:'El producto, colgado en vertical. Al prensarse, el músculo se estrecha en la zona de las almohadillas. Tras el corte, la parte inferior cae a la bandeja.',b:[[116,102,68,162]]},
+discs:{es:'Discos alineadores de plástico',en:'Upper and lower plastic alignment discs',d:'Dos discos dentados de HDPE o UHMW en un eje vertical. Giran con sus dientes y empujan la pierna hacia adentro, en línea recta, hacia el disco de corte.',b:[[46,154,104,64]]},
+shaft:{es:'Eje de corte (vertical)',en:'Vertical cutting shaft',d:'Eje fijo montado en el bastidor superior. Sostiene el disco a la altura media de la pierna.',b:[[155,64,54,118]]},
+blade:{es:'Disco de corte giratorio (horizontal)',en:'Horizontal rotary cutting disc',d:'Disco dentado a la altura media de la pierna. Gira en plano horizontal y queda fijo; la pierna avanza hacia adentro y el disco la atraviesa por completo.',b:[[116,172,132,28]]},
+act:{es:'Actuadores neumáticos (prensado lateral)',en:'Pneumatic pressing actuators (x2)',d:'Cilindros horizontales de doble efecto con mangueras azules. Sus almohadillas llevan una cara blanda para apretar el músculo sin dañarlo.',b:[[30,212,92,56],[180,212,158,56]]}
+};
+var order=['frame','rail','hook','leg','discs','shaft','blade','act'];
+var NS='http://www.w3.org/2000/svg';
+var tree=document.getElementById('tree');
+order.forEach(function(k,i){
+  var b=document.createElement('button');
+  b.className='row';b.id='r_'+k;b.setAttribute('aria-pressed','false');
+  b.textContent=(i+1)+'. '+P[k].es;b.onclick=function(){sel(k)};
+  tree.appendChild(b);
+});
+
+/* Discos alineadores en forma de engrane */
+function gear(cx,cy,r,n,ph){ph=ph||0;
+  var d='';
+  for(var i=0;i<n;i++){
+    var a=i*2*Math.PI/n+ph;
+    [[-.2,.8],[-.13,1],[.13,1],[.2,.8]].forEach(function(q,j){
+      var x=cx+r*q[1]*Math.cos(a+q[0]), y=cy+.27*r*q[1]*Math.sin(a+q[0]);
+      d+=(i+j?'L':'M')+x.toFixed(1)+' '+y.toFixed(1);
+    });
+  }
+  return d+'Z';
+}
+(function(){
+  var g=document.getElementById('gears'),h='';
+  [199,171].forEach(function(cy){
+    h+='<path d="'+gear(98,cy+4,50,8)+'" fill="#b3bac0"/>';
+    h+='<path d="'+gear(98,cy,50,8)+'" fill="#f4f5f6" stroke="#9aa0a5" stroke-width=".7"/>';
+    h+='<ellipse cx="98" cy="'+cy+'" rx="14" ry="5" fill="#c3c8cc" stroke="#5f656b" stroke-width=".5"/>';
+  });
+  g.innerHTML=h;
+})();
+
+function clearOv(){
+  document.getElementById('ov').innerHTML='';
+  order.forEach(function(k){document.getElementById('r_'+k).setAttribute('aria-pressed','false')});
+}
+function sel(k){
+  if(busy)return;
+  clearOv();
+  var p=P[k],ov=document.getElementById('ov');
+  p.b.forEach(function(b){
+    var r=document.createElementNS(NS,'rect');
+    r.setAttribute('x',b[0]);r.setAttribute('y',b[1]);
+    r.setAttribute('width',b[2]);r.setAttribute('height',b[3]);
+    r.setAttribute('rx',3);r.setAttribute('fill','none');
+    r.setAttribute('stroke','#378ADD');r.setAttribute('stroke-width','1.2');
+    r.setAttribute('stroke-dasharray','4 3');ov.appendChild(r);
+  });
+  document.getElementById('r_'+k).setAttribute('aria-pressed','true');
+  document.getElementById('iN').textContent=p.es;
+  document.getElementById('iE').textContent=p.en;
+  document.getElementById('iD').textContent=p.d;
+}
+
+/* ---- Estado ---- */
+var busy=false,pressed=false,spinning=false,continuous=false,processed=0,speed=1.0,running=false,cyc=0,last=0,gph=0,front=false,PERIOD=7000;
+var $=function(i){return document.getElementById(i)};
+var car=$('car'),cw=$('cw'),bg=$('bg'),L=$('L'),R=$('R'),teeth=$('teeth'),chain=$('chain'),cf=$('cf'),lowG=$('lowG'),fallG=$('fallG'),gears=$('gears');
+car.style.transformOrigin='0px 34px';
+function status(t){$('st').textContent='Estado: '+t}
+function updateCounter(){$('counter').textContent='Piezas procesadas: '+processed}
+function updateSpeed(){
+  speed=parseFloat($('speed').value);
+  $('spdLabel').textContent=speed.toFixed(1)+'× · '+(PERIOD/speed/1000).toFixed(1)+' s';
+  document.documentElement.style.setProperty('--ts',(0.3/speed)+'s');
+  L.style.transition=R.style.transition='transform '+(0.45/speed)+'s ease-in-out';
+  teeth.style.animationDuration=(0.5/speed)+'s';
+}
+function setPress(p){
+  pressed=p;
+  L.style.transform='translateX('+(p?16:0)+'px)';
+  R.style.transform='translateX('+(p?-16:0)+'px)';
+  document.querySelectorAll('.vn').forEach(function(e){e.style.opacity=p?0:1});
+  document.querySelectorAll('.vs').forEach(function(e){e.style.opacity=p?1:0});
+  $('bPress').textContent=p?'Soltar pierna':'Prensar pierna';
+}
+function setSpin(s){
+  spinning=s;
+  teeth.classList.toggle('spin',s);
+  $('bSpin').textContent=s?'Parar disco':'Girar disco';
+}
+function drawGears(){
+  var h='';
+  [199,171].forEach(function(cy){
+    h+='<path d="'+gear(98,cy+4,50,8,gph)+'" fill="#b3bac0"/>';
+    h+='<path d="'+gear(98,cy,50,8,gph)+'" fill="#f4f5f6" stroke="#9aa0a5" stroke-width=".7"/>';
+    h+='<ellipse cx="98" cy="'+cy+'" rx="14" ry="5" fill="#c3c8cc" stroke="#5f656b" stroke-width=".5"/>';
+  });
+  gears.innerHTML=h;
+}
+function cl(x){return Math.max(0,Math.min(1,x))}
+function showIdle(){
+  car.style.transform='scale(1)';car.style.opacity=1;
+  if(pressed)setPress(false);
+  front=false;cw.before(bg);
+  cf.style.opacity=0;lowG.style.transform='translateY(0px)';lowG.style.opacity=1;
+  fallG.style.transition='none';fallG.style.transform='';fallG.style.opacity=0;
+}
+/* t: 0..1 = entra empujada, se prensa y corta, cae la pieza, sale la parte superior */
+function frame(t){
+  var sc=1,op=1;
+  car.style.transform='scale('+sc+')';car.style.opacity=op;
+  var pr=t>=.28&&t<.54;if(pr!==pressed)setPress(pr);
+  var f=t>=.3;if(f!==front){front=f;f?cw.after(bg):cw.before(bg)}
+  var cut=t>=.5,g=cl((t-.5)/.28);
+  cf.style.opacity=cut?1:0;
+  lowG.style.transform=cut?'translateY(5px)':'translateY(0px)';
+  lowG.style.opacity=cut?0:1;
+  fallG.style.transition='none';
+  fallG.style.opacity=cut?1:0;
+  fallG.style.transform=cut?'translate('+(8*g)+'px,'+(5+49*g*g)+'px) rotate('+(80*g)+'deg)':'';
+  status(t<.28?'los alineadores empujan la pierna':t<.5?'prensando y cortando con el disco fijo':t<.78?'la pieza cortada cae a la bandeja':'siguiente pieza');
+}
+function tick(ts){
+  if(!running)return;
+  var dt=Math.min(50,ts-last);last=ts;
+  cyc+=dt*speed/PERIOD;gph+=dt*0.005*speed;
+  if(cyc>=1){cyc=0;processed++;updateCounter();if(!continuous)return finish()}
+  frame(cyc);drawGears();
+  requestAnimationFrame(tick);
+}
+function startRun(){
+  if(running)return;
+  running=true;busy=true;clearOv();setSpin(true);
+  chain.classList.add('run');$('bRun').disabled=true;
+  cyc=0;last=performance.now();frame(0);
+  requestAnimationFrame(tick);
+}
+function finish(){
+  running=false;busy=false;chain.classList.remove('run');setSpin(false);
+  showIdle();$('bRun').disabled=false;status('listo');
+  if(!continuous){$('bCont').classList.remove('active');$('bCont').textContent='Producción continua'}
+}
+function runOne(){continuous=false;startRun()}
+function toggleContinuous(){
+  continuous=!continuous;
+  var btn=$('bCont');
+  if(continuous){btn.classList.add('active');btn.textContent='Detener producción';startRun()}
+  else{btn.classList.remove('active');btn.textContent='Producción continua';if(running)status('deteniendo al terminar la pieza…')}
+}
+function togglePress(){if(busy)return;setPress(!pressed);status(pressed?'pierna prensada':'listo')}
+function toggleSpin(){if(busy)return;setSpin(!spinning);status(spinning?'disco girando':'listo')}
+updateSpeed();drawGears();showIdle();
+</script>
+</body>
+</html>
